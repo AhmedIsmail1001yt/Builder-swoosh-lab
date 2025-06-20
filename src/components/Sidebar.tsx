@@ -18,12 +18,7 @@ interface SidebarProps {
 }
 
 const navigationItems = [
-  { id: "overview", label: "Dashboard", icon: Home },
-  { id: "compute", label: "Compute Nodes", icon: Server },
-  { id: "vms", label: "Virtual Machines", icon: HardDrive },
-  { id: "resources", label: "Resource Distribution", icon: BarChart3 },
   { id: "migration", label: "Migration Advice", icon: ArrowRightLeft },
-  { id: "results", label: "Migration Results", icon: CheckCircle2 },
 ];
 
 export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
@@ -36,11 +31,11 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
             <Server className="w-5 h-5 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-sidebar-foreground">
+            <h1 className="text-xl font-bold text-sidebar-foreground">
               B'GREEN
             </h1>
-            <p className="text-xs text-sidebar-foreground/70 font-medium">
-              Infrastructure Platform
+            <p className="text-sm text-sidebar-foreground/70 font-medium">
+              Migration Advisor
             </p>
           </div>
         </div>
@@ -72,12 +67,14 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-6 border-t border-sidebar-border">
         <div className="text-center">
-          <p className="text-xs text-sidebar-foreground/60">
-            Cloud Infrastructure Management
+          <p className="text-sm text-sidebar-foreground/70 font-medium">
+            AI-Powered Migration
           </p>
-          <p className="text-xs text-sidebar-foreground/40 mt-1">v2.0.1</p>
+          <p className="text-xs text-sidebar-foreground/50 mt-1">
+            Optimize • Migrate • Save
+          </p>
         </div>
       </div>
     </div>
