@@ -25,9 +25,6 @@ import {
 const nodeData = [
   { name: "node-01", usage: 75, vms: 4, color: "#22c55e" },
   { name: "node-02", usage: 92, vms: 6, color: "#ef4444" },
-  { name: "node-03", usage: 63, vms: 3, color: "#3b82f6" },
-  { name: "node-04", usage: 88, vms: 5, color: "#f59e0b" },
-  { name: "node-05", usage: 45, vms: 2, color: "#8b5cf6" },
 ];
 
 const migrationPaths = [
@@ -35,7 +32,7 @@ const migrationPaths = [
     id: 1,
     vm: "VM-PROD-001",
     from: "node-02",
-    to: "node-03",
+    to: "node-01",
     confidence: 95,
     powerSaving: "4.2W",
     efficiency: "+12%",
@@ -44,22 +41,12 @@ const migrationPaths = [
   {
     id: 2,
     vm: "VM-DEV-005",
-    from: "node-04",
+    from: "node-02",
     to: "node-01",
     confidence: 88,
     powerSaving: "3.8W",
     efficiency: "+8%",
     priority: "medium",
-  },
-  {
-    id: 3,
-    vm: "VM-TEST-003",
-    from: "node-02",
-    to: "node-05",
-    confidence: 72,
-    powerSaving: "2.1W",
-    efficiency: "+5%",
-    priority: "low",
   },
 ];
 
@@ -67,7 +54,7 @@ export const MigrationDashboard = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Header with Live Status */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-background to-blue-500/10 p-8 border-2">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 via-emerald-50 to-purple-50 p-8 border-2 border-blue-200/50">
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -125,7 +112,7 @@ export const MigrationDashboard = () => {
         {/* Left Column - Node & VM Overview */}
         <div className="col-span-1 space-y-6">
           {/* Compute Nodes */}
-          <Card className="border-2 border-border/50 bg-gradient-to-br from-card to-card/50">
+          <Card className="border-2 border-blue-200/50 bg-gradient-to-br from-blue-50/50 to-white">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Server className="w-5 h-5 text-primary" />
@@ -172,7 +159,7 @@ export const MigrationDashboard = () => {
           </Card>
 
           {/* Virtual Machines Summary */}
-          <Card className="border-2 border-border/50 bg-gradient-to-br from-card to-card/50">
+          <Card className="border-2 border-emerald-200/50 bg-gradient-to-br from-emerald-50/50 to-white">
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <HardDrive className="w-5 h-5 text-blue-500" />
@@ -218,7 +205,7 @@ export const MigrationDashboard = () => {
         {/* Right Column - Resource Distribution & Migration Flow */}
         <div className="col-span-2 space-y-6">
           {/* Resource Distribution Chart */}
-          <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+          <Card className="border-2 border-purple-200/50 bg-gradient-to-br from-purple-50/50 to-white">
             <CardHeader>
               <CardTitle className="text-xl font-bold">
                 Resource Distribution by Node
@@ -271,7 +258,7 @@ export const MigrationDashboard = () => {
           </Card>
 
           {/* Migration Recommendations - Smart Flow Design */}
-          <Card className="border-2 border-orange-500/20 bg-gradient-to-br from-orange-500/5 to-transparent">
+          <Card className="border-2 border-orange-200/50 bg-gradient-to-br from-orange-50/50 to-white">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -295,7 +282,7 @@ export const MigrationDashboard = () => {
               {migrationPaths.map((migration, index) => (
                 <div key={migration.id} className="relative">
                   {/* Migration Flow Visualization */}
-                  <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-border/50 hover:border-primary/50 transition-all duration-300 bg-gradient-to-r from-background to-muted/20">
+                  <div className="flex items-center gap-4 p-4 rounded-xl border-2 border-slate-200/50 hover:border-primary/50 transition-all duration-300 bg-gradient-to-r from-blue-50/30 to-emerald-50/30">
                     {/* Priority Badge */}
                     <div className="flex-shrink-0">
                       <Badge
@@ -374,7 +361,7 @@ export const MigrationDashboard = () => {
       </div>
 
       {/* Verified Migration Results */}
-      <Card className="border-2 border-green-500/20 bg-gradient-to-br from-green-500/5 to-transparent">
+      <Card className="border-2 border-green-200/50 bg-gradient-to-br from-green-50/50 to-white">
         <CardHeader>
           <CardTitle className="text-xl font-bold flex items-center gap-2">
             <CheckCircle2 className="w-6 h-6 text-green-500" />
