@@ -111,11 +111,139 @@ export const MigrationDashboard = () => {
         ))}
       </div>
 
-      {/* Node Usage Visualization */}
+      {/* Compute Nodes */}
       <Card className="border-2">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            Current Node Utilization
+            Compute Nodes
+          </CardTitle>
+          <p className="text-center text-muted-foreground">
+            Active infrastructure nodes and their status
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {nodeUsageData.map((node, index) => (
+              <div
+                key={node.name}
+                className="text-center p-4 border rounded-lg space-y-3"
+              >
+                <div className="flex items-center justify-center">
+                  <Server className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">
+                    {node.name}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    CPU: {node.usage}%
+                  </div>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2">
+                  <div
+                    className="h-2 rounded-full"
+                    style={{
+                      width: `${node.usage}%`,
+                      backgroundColor: node.color,
+                    }}
+                  ></div>
+                </div>
+                <Badge
+                  variant={node.usage > 85 ? "destructive" : "default"}
+                  className="text-xs"
+                >
+                  {node.usage > 85 ? "High Load" : "Active"}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Virtual Machines */}
+      <Card className="border-2">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-center">
+            Virtual Machines
+          </CardTitle>
+          <p className="text-center text-muted-foreground">
+            Current VM deployment across nodes
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              {
+                name: "VM-PROD-001",
+                node: "node-02",
+                status: "running",
+                usage: 82,
+              },
+              {
+                name: "VM-DEV-005",
+                node: "node-01",
+                status: "running",
+                usage: 65,
+              },
+              {
+                name: "VM-TEST-003",
+                node: "node-04",
+                status: "running",
+                usage: 91,
+              },
+              {
+                name: "VM-STAGE-002",
+                node: "node-03",
+                status: "running",
+                usage: 58,
+              },
+              {
+                name: "VM-BACKUP-001",
+                node: "node-05",
+                status: "running",
+                usage: 43,
+              },
+              {
+                name: "VM-WEB-003",
+                node: "node-02",
+                status: "running",
+                usage: 76,
+              },
+            ].map((vm, index) => (
+              <div
+                key={vm.name}
+                className="flex items-center justify-between p-4 border rounded-lg hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div>
+                    <div className="font-semibold text-foreground">
+                      {vm.name}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Hosted on {vm.node}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-medium text-foreground">
+                    {vm.usage}% CPU
+                  </div>
+                  <Badge variant="outline" className="text-xs">
+                    {vm.status}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Resource Distribution by Node */}
+      <Card className="border-2">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold text-center">
+            Resource Distribution by Node
           </CardTitle>
           <p className="text-center text-muted-foreground">
             CPU usage distribution across compute nodes
@@ -250,18 +378,18 @@ export const MigrationDashboard = () => {
       </Card>
 
       {/* Action Buttons */}
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-6">
         <Button size="lg" className="px-8 py-3 text-lg font-semibold">
           <CheckCircle2 className="w-5 h-5 mr-2" />
-          Approve All Migrations
+          Approve Migration
         </Button>
         <Button
           size="lg"
-          variant="outline"
+          variant="destructive"
           className="px-8 py-3 text-lg font-semibold"
         >
           <AlertTriangle className="w-5 h-5 mr-2" />
-          Review Recommendations
+          Decline Migration
         </Button>
       </div>
     </div>
