@@ -42,12 +42,17 @@ export const MigrationAdvice = ({ onApprove }: MigrationAdviceProps) => {
   return (
     <div className="space-y-6">
       {/* Current Target Utilization */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-orange-500" />
-            Migration Advice
-          </CardTitle>
+      <Card className="border-2 border-border/50">
+        <CardHeader className="pb-4">
+          <div>
+            <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <AlertTriangle className="w-6 h-6 text-orange-500" />
+              Migration Recommendations
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              AI-powered optimization suggestions
+            </p>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert>

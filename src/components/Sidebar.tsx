@@ -18,15 +18,12 @@ interface SidebarProps {
 }
 
 const navigationItems = [
-  { id: "overview", label: "Overview", icon: Home },
+  { id: "overview", label: "Dashboard", icon: Home },
   { id: "compute", label: "Compute Nodes", icon: Server },
   { id: "vms", label: "Virtual Machines", icon: HardDrive },
   { id: "resources", label: "Resource Distribution", icon: BarChart3 },
   { id: "migration", label: "Migration Advice", icon: ArrowRightLeft },
   { id: "results", label: "Migration Results", icon: CheckCircle2 },
-  { id: "monitoring", label: "Monitoring", icon: Activity },
-  { id: "users", label: "Users", icon: Users },
-  { id: "settings", label: "Settings", icon: Settings },
 ];
 
 export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
@@ -39,10 +36,12 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
             <Server className="w-5 h-5 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-sidebar-foreground">
+            <h1 className="text-lg font-bold text-sidebar-foreground">
               B'GREEN
             </h1>
-            <p className="text-xs text-sidebar-foreground/60">Cloud Manager</p>
+            <p className="text-xs text-sidebar-foreground/70 font-medium">
+              Infrastructure Platform
+            </p>
           </div>
         </div>
       </div>
@@ -74,20 +73,11 @@ export const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
 
       {/* Footer */}
       <div className="p-4 border-t border-sidebar-border">
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-sidebar-accent">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <span className="text-xs font-medium text-primary-foreground">
-              JD
-            </span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-sidebar-foreground truncate">
-              John Doe
-            </p>
-            <p className="text-xs text-sidebar-foreground/60 truncate">
-              System Admin
-            </p>
-          </div>
+        <div className="text-center">
+          <p className="text-xs text-sidebar-foreground/60">
+            Cloud Infrastructure Management
+          </p>
+          <p className="text-xs text-sidebar-foreground/40 mt-1">v2.0.1</p>
         </div>
       </div>
     </div>

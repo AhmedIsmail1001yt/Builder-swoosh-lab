@@ -31,41 +31,61 @@ const Index = () => {
     switch (activeTab) {
       case "overview":
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  Infrastructure Dashboard
+                </h1>
+                <p className="text-muted-foreground mt-1">
+                  Real-time cloud resource management and optimization
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
+                  Live
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Last updated: {new Date().toLocaleTimeString()}
+                </div>
+              </div>
+            </div>
+
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatsCard
-                title="Compute Nodes"
+                title="Active Compute Nodes"
                 value="4"
-                change="+2 from last month"
+                change="100% operational"
                 changeType="positive"
                 icon={Server}
               />
               <StatsCard
                 title="Virtual Machines"
                 value="23"
-                change="+5 from last week"
+                change="All systems running"
                 changeType="positive"
                 icon={HardDrive}
               />
               <StatsCard
-                title="Total CPU Usage"
+                title="Average CPU Usage"
                 value="67.8%"
-                change="-5% from yesterday"
+                change="Optimal performance"
                 changeType="positive"
                 icon={Activity}
               />
               <StatsCard
                 title="Power Efficiency"
                 value="92.4%"
-                change="+3.2% this week"
+                change="Energy optimized"
                 changeType="positive"
                 icon={Zap}
               />
             </div>
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <ResourceChart />
               <div className="space-y-6">
                 <MigrationAdvice onApprove={handleApprove} />

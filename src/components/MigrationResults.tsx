@@ -44,15 +44,20 @@ const migrationResults = [
 
 export const MigrationResults = () => {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="border-2 border-border/50">
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-primary" />
-            Verified Migration Results
-          </CardTitle>
-          <Button variant="outline" size="sm">
-            View All
+          <div>
+            <CardTitle className="flex items-center gap-2 text-xl font-bold">
+              <CheckCircle2 className="w-6 h-6 text-primary" />
+              Migration Performance
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              Verified results and power savings
+            </p>
+          </div>
+          <Button variant="outline" size="sm" className="font-medium">
+            Export Report
           </Button>
         </div>
       </CardHeader>

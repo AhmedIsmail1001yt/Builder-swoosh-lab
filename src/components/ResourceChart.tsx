@@ -61,14 +61,19 @@ const CustomLabel = ({
 
 export const ResourceChart = () => {
   return (
-    <Card className="col-span-2">
-      <CardHeader>
+    <Card className="col-span-2 border-2 border-border/50">
+      <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold">
-            Resource Distribution by Node
-          </CardTitle>
-          <div className="text-sm text-muted-foreground">
-            CPU Usage Distribution
+          <div>
+            <CardTitle className="text-xl font-bold text-foreground">
+              Resource Distribution
+            </CardTitle>
+            <p className="text-sm text-muted-foreground mt-1">
+              CPU usage across compute nodes
+            </p>
+          </div>
+          <div className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full font-medium">
+            Real-time
           </div>
         </div>
       </CardHeader>
