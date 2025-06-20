@@ -1,37 +1,62 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  PieChart,
+  Pie,
   Tooltip,
   ResponsiveContainer,
   Cell,
+  Legend,
 } from "recharts";
 
 const data = [
-  { name: "node-01", cpu: 75, memory: 82, storage: 45 },
-  { name: "node-02", cpu: 92, memory: 78, storage: 67 },
-  { name: "node-03", cpu: 63, memory: 95, storage: 89 },
-  { name: "node-04", cpu: 88, memory: 71, storage: 34 },
-  { name: "node-05", cpu: 45, memory: 65, storage: 78 },
+  { name: "node-01", value: 75, usage: "75%", color: "hsl(var(--primary))" },
+  { name: "node-02", value: 92, usage: "92%", color: "#f59e0b" },
+  { name: "node-03", value: 63, usage: "63%", color: "#3b82f6" },
+  { name: "node-04", value: 88, usage: "88%", color: "#ef4444" },
+  { name: "node-05", value: 45, usage: "45%", color: "#8b5cf6" },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
+    const data = payload[0].payload;
     return (
       <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
-        <p className="text-sm font-medium text-foreground">{`Node: ${label}`}</p>
-        {payload.map((entry: any, index: number) => (
-          <p key={index} className="text-sm" style={{ color: entry.color }}>
-            {`${entry.name}: ${entry.value}%`}
-          </p>
-        ))}
+        <p className="text-sm font-medium text-foreground">{data.name}</p>
+        <p className="text-sm" style={{ color: data.color }}>
+          CPU Usage: {data.usage}
+        </p>
       </div>
     );
   }
   return null;
+};
+
+const CustomLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}: any) => {
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="hsl(var(--background))"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+      fontSize={12}
+      fontWeight="500"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
 };
 
 export const ResourceChart = () => {
@@ -42,49 +67,59 @@ export const ResourceChart = () => {
           <CardTitle className="text-lg font-semibold">
             Resource Distribution by Node
           </CardTitle>
-          <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-primary rounded-full"></div>
-              <span className="text-muted-foreground">CPU</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-              <span className="text-muted-foreground">Memory</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-muted-foreground">Storage</span>
-            </div>
+          <div className="text-sm text-muted-foreground">
+            CPU Usage Distribution
           </div>
         </div>
       </CardHeader>
       <CardContent>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={data}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="hsl(var(--border))"
-              />
-              <XAxis
-                dataKey="name"
-                stroke="hsl(var(--muted-foreground))"
-                fontSize={12}
-              />
-              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={CustomLabel}
+                outerRadius={100}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
               <Tooltip content={<CustomTooltip />} />
-              <Bar
-                dataKey="cpu"
-                fill="hsl(var(--primary))"
-                radius={[4, 4, 0, 0]}
+              <Legend
+                verticalAlign="bottom"
+                height={36}
+                formatter={(value, entry: any) => (
+                  <span style={{ color: entry.color }}>{value}</span>
+                )}
               />
-              <Bar dataKey="memory" fill="#f59e0b" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="storage" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* Node details below the chart */}
+        <div className="grid grid-cols-3 gap-4 mt-6 pt-4 border-t border-border">
+          {data.map((node, index) => (
+            <div key={node.name} className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <div
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: node.color }}
+                />
+                <span className="text-sm font-medium text-foreground">
+                  {node.name}
+                </span>
+              </div>
+              <div className="text-xs text-muted-foreground">
+                CPU: {node.usage}
+              </div>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>
