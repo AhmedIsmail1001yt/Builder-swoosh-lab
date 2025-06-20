@@ -14,12 +14,13 @@ import {
   X,
 } from "lucide-react";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
 const nodeData = [
@@ -59,11 +60,8 @@ export const MigrationDashboard = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-blue-500 to-green-500 bg-clip-text text-transparent">
-                Migration Intelligence
+                B'GREEN Dashboard
               </h1>
-              <p className="text-xl text-muted-foreground mt-2">
-                Smart workload optimization powered by AI
-              </p>
             </div>
             <div className="flex items-center gap-3">
               <div className="px-4 py-2 bg-primary/20 border border-primary/30 rounded-full">
@@ -217,10 +215,14 @@ export const MigrationDashboard = () => {
             <CardContent>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
+                  <LineChart
                     data={nodeData}
                     margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                   >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="hsl(var(--border))"
+                    />
                     <XAxis
                       dataKey="name"
                       stroke="hsl(var(--muted-foreground))"
@@ -246,12 +248,15 @@ export const MigrationDashboard = () => {
                         `${props.payload.vms} VMs`,
                       ]}
                     />
-                    <Bar dataKey="usage" radius={[4, 4, 0, 0]}>
-                      {nodeData.map((entry, index) => (
-                        <Bar key={`bar-${index}`} fill={entry.color} />
-                      ))}
-                    </Bar>
-                  </BarChart>
+                    <Line
+                      type="monotone"
+                      dataKey="usage"
+                      stroke="#22c55e"
+                      strokeWidth={3}
+                      dot={{ fill: "#22c55e", strokeWidth: 2, r: 6 }}
+                      activeDot={{ r: 8, stroke: "#22c55e", strokeWidth: 2 }}
+                    />
+                  </LineChart>
                 </ResponsiveContainer>
               </div>
             </CardContent>
